@@ -9,11 +9,15 @@ def parse_arg() -> tuple[bool, str, int]:
     arg_parser = argparse.ArgumentParser()
 
     arg_parser.add_argument(
-        "--dry-run", action="store_true", help="If set, do dry run")
+        "--dry-run", action="store_true",
+        help="optional - if set, do dry run (run the process but does NOT click 'book' button)")
     arg_parser.add_argument(
-        "-t", "--time", type=str, action="store", required=True, help="Book time, 10AM, 12PM, 9PM, etc.")
+        "-t", "--time", type=str, action="store", required=True, help="required - book time, 10AM, 12PM, 9PM, etc.")
     arg_parser.add_argument(
-        "--slot", type=int, action="store", required=False, default=1, help="# of slot to book")
+        "--slot", type=int, action="store", required=False, default=1,
+        help="optional, default = 1 - # of slot to book. If there are multiple slots, book the specified slot. "
+             + "For example, if courts 3,4,5,6,7 are available, "
+             + " SLOT=2 means book count #4 (2nd slot)")
 
     args = arg_parser.parse_args()
 
