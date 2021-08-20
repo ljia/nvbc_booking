@@ -29,6 +29,13 @@ def parse_arg() -> tuple[bool, str, int]:
 if __name__ == '__main__':
     dryRun, bookTime, slot = parse_arg()
 
+    users = [['u', 'p']]
+    slot_user = {}
+    for i in range(9):
+        slot_user[i + 1] = users[i % len(users)]
+
+    user_in_use = slot_user[slot]
+
     driver = webdriver.Chrome()
 
     try:
@@ -43,11 +50,14 @@ if __name__ == '__main__':
         password_input = driver.find_element_by_xpath('//input[@id="Password"]')
         login_button = driver.find_element_by_xpath('//button[@id="btnLogin"]')
 
+        username_input.send_keys(user_in_use[0])
+        password_input.send_keys(user_in_use[1])
+
         username_input.send_keys("allenjia")
         password_input.send_keys("xxxx")
         login_button.click()
 
-        for i in range(0, 5):
+        for i in range(0, 3):
             driver.get("https://nvbc.ezfacility.com/Sessions")
             sleep(1)
 
