@@ -3,9 +3,10 @@ import sys
 from selenium import webdriver
 from time import sleep
 import argparse
+import yaml
 
 
-def parse_arg() -> tuple[bool, str, int]:
+def parse_arg() -> tuple[bool, str, int, str]:
     arg_parser = argparse.ArgumentParser()
 
     arg_parser.add_argument(
@@ -18,18 +19,25 @@ def parse_arg() -> tuple[bool, str, int]:
         help="optional, default = 1 - # of slot to book. If there are multiple slots, book the specified slot. "
              + "For example, if courts 3,4,5,6,7 are available, "
              + " SLOT=2 means book count #4 (2nd slot)")
+    arg_parser.add_argument(
+        "-p", "--property-file", type=str, action="store", required=False, default="property.yml",
+        help="optional, property file. Default to property.yml")
 
     args = arg_parser.parse_args()
 
     print(repr(args))
 
-    return args.dry_run, args.time, args.slot
+    return args.dry_run, args.time, args.slot, args.property_file
 
 
 if __name__ == '__main__':
-    dryRun, bookTime, slot = parse_arg()
+    dry_run, bookTime, slot, property_file = parse_arg()
 
-    users = [['u', 'p']]
+    with open(property_file) as fh:
+        read_data = yaml.load(fh, Loader=yaml.FullLoader)
+
+    users = read_data['users']
+
     slot_user = {}
     for i in range(9):
         slot_user[i + 1] = users[i % len(users)]
@@ -37,9 +45,10 @@ if __name__ == '__main__':
     user_in_use = slot_user[slot]
 
     driver = webdriver.Chrome()
+    # driver = webdriver.Firefox()
 
     try:
-        driver.get("https://nvbc.ezfacility.com/Sessions")
+        driver.get("https://nvbc.ezfacility.com/Sessions#")
 
         login_button = driver.find_element_by_xpath('//a[contains(text(), "Login")]')
         login_button.click()
@@ -50,12 +59,11 @@ if __name__ == '__main__':
         password_input = driver.find_element_by_xpath('//input[@id="Password"]')
         login_button = driver.find_element_by_xpath('//button[@id="btnLogin"]')
 
-        username_input.send_keys(user_in_use[0])
-        password_input.send_keys(user_in_use[1])
+        username_input.send_keys(user_in_use['username'])
+        password_input.send_keys(user_in_use['password'])
 
-        username_input.send_keys("allenjia")
-        password_input.send_keys("xxxx")
         login_button.click()
+        sleep(0.5)
 
         for i in range(0, 3):
             driver.get("https://nvbc.ezfacility.com/Sessions")
@@ -99,7 +107,7 @@ if __name__ == '__main__':
                 sleep(0.5)
                 btn_book = driver.find_element_by_xpath('//button[@id="btnBook"]')
 
-                if dryRun:
+                if dry_run:
                     print("Dry run ... do nothing")
                 else:
                     btn_book.click()
