@@ -7,7 +7,7 @@ site: https://nvbc.ezfacility.com/
 ### Pre-requisites
 
 1. Python 3 (script is tested with Python 3.9.6)
-2. Chrome browser (or Firefox)
+2. Chrome browser
 
 ### OS Supported
 
@@ -20,22 +20,27 @@ site: https://nvbc.ezfacility.com/
 1. Download and install [Python 3.9.6](https://www.python.org/downloads/)
 2. Install [pip](https://pip.pypa.io/en/stable/installation/)
 3. Install required packages
+4. Please download [ChromeDriver](https://chromedriver.chromium.org/downloads) for your OS 
+and put it in the same directory where python executable resides.
+**Note**: Please make sure to download the right version for your browser. 
 ```bash
 pip install -r requirements.txt
 ```
 
 ## Run Script
 
-Note: The script does NOT support multi-thread. Please use appropriate tool to schedule and/or run multiple instances.
+**Note**: The script does **NOT** support multi-thread. Please use appropriate tool to schedule and/or run multiple instances.
 For example, the following script tries to open two browsers in Windows PowerShell:
 
 ```powershell
 1,2 | ForEach-Object -Parallel { python.exe .\main.py -t 6PM --slot $_}
 ```
 
-Note: The script does NOT give a confirmation if a court is successfully booked.
+**Note**: The script does **NOT** give a confirmation if a court is successfully booked.
 If you see 'clicked' in the console, that means the script successfully clicked the 'book' button.
 It does NOT mean that a 'book' is guaranteed if multiple users are trying to book the same court at the same time.
+
+### Steps
 
 1. Before running, please update property.yml with your username/password.
 2. To get help, run:
