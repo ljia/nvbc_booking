@@ -18,14 +18,15 @@ site: https://nvbc.ezfacility.com/
 ### Steps
 
 1. Download and install [Python 3.9.6](https://www.python.org/downloads/)
-2. Install [pip](https://pip.pypa.io/en/stable/installation/)
-3. Install required packages
-4. Please download [ChromeDriver](https://chromedriver.chromium.org/downloads) for your OS 
-and put it in the same directory where python executable resides.
-**Note**: Please make sure to download the right version for your browser. 
+2. Download and install Google Chrome
+3. Install [pip](https://pip.pypa.io/en/stable/installation/)
+4. Install required packages
 ```bash
 pip install -r requirements.txt
 ```
+5. Please download [ChromeDriver](https://chromedriver.chromium.org/downloads) for your OS 
+and put it in the same directory where python executable resides.
+**Note**: Please make sure to download the right version for your browser.
 
 ## Run Script
 
