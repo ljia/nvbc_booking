@@ -24,8 +24,8 @@ site: https://nvbc.ezfacility.com/
 ```bash
 pip install -r requirements.txt
 ```
-5. Please download [ChromeDriver](https://chromedriver.chromium.org/downloads) for your OS 
-and put it in the same directory where python executable resides.
+5. Download [ChromeDriver](https://chromedriver.chromium.org/downloads) for your OS 
+and put it in the same directory where Python executable resides.
 **Note**: Please make sure to download the right version for your browser.
 
 ## Run Script
