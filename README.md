@@ -1,4 +1,4 @@
-# This script is to automatically book court at NVBC
+# This script puts together steps one user needs to do to book a court. Because computer performance and network delay vary, you need to manually start it to get optimized timing. This script is not meant to be cron-ed.
 
 site: https://nvbc.ezfacility.com/
 
@@ -6,7 +6,7 @@ site: https://nvbc.ezfacility.com/
 
 ### Pre-requisites
 
-1. Python 3 (script is tested with Python 3.9.6)
+1. Python 3.9 (script is tested with Python 3.9.6)
 2. Chrome browser
 
 ### OS Supported
@@ -30,16 +30,11 @@ and put it in the same directory where Python executable resides.
 
 ## Run Script
 
-**Note**: The script does **NOT** support multi-thread. Please use appropriate tool to schedule and/or run multiple instances.
-For example, the following script tries to open two browsers in Windows PowerShell:
-
-```powershell
-1,2 | ForEach-Object -Parallel { python.exe .\main.py -t 6PM --slot $_}
-```
-
 **Note**: The script does **NOT** give a confirmation if a court is successfully booked.
 If you see 'clicked' in the console, that means the script successfully clicked the 'book' button.
-It does NOT mean that a 'book' is guaranteed if multiple users are trying to book the same court at the same time.
+It does NOT mean that a 'book' is guaranteed if other users are trying to book the same court at the same time.
+
+**Note**: The script does **NOT** support multi-thread. It just makes single user booking more convenient. If one run did not book a court, please start the script again.
 
 ### Steps
 
